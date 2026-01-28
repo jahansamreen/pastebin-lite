@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pastebin Lite
 
-## Getting Started
+A minimal pastebin application built with Next.js and PostgreSQL (Neon).
 
-First, run the development server:
+## Features
 
+- Create text pastes with shareable links
+- Optional expiration by time (minutes)
+- Optional expiration by view count
+- Clean, modern UI with glassmorphism design
+- View tracking
+
+## Setup
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Set up your Neon database:
+   - Create a free account at [Neon](https://neon.tech)
+   - Create a new project and database
+   - Copy the connection string
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Create `.env.local` file:
+```
+DATABASE_URL="your-neon-connection-string"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the database schema:
+   - Connect to your Neon database console
+   - Execute the SQL from `schema.sql`
 
-## Learn More
+5. Run the development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+6. Open [http://localhost:3000](http://localhost:3000)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Deploy to Vercel
 
-## Deploy on Vercel
+1. Push your code to GitHub
+2. Import the project in Vercel
+3. Add the `DATABASE_URL` environment variable
+4. Deploy!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **Database**: PostgreSQL (Neon)
+- **Deployment**: Vercel
+
+## API Endpoints
+
+### Create Paste
+```
+POST /api/paste
+Body: {
+  content: string,
+  expiresIn?: number (minutes),
+  maxViews?: number
+}
+```
+
+### Get Paste
+```
+GET /api/paste/[id]
+```
